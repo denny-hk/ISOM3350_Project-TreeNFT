@@ -78,7 +78,6 @@ contract TreePlantingNFT {
         require(msg.sender == forests[_forest_id].owner || msg.sender == admin, "Only owner or admin can call this function.");
         _;
     }
-    
 
     //Calculate the carbon offset of a forest
     function calculateForestCarbonOffset(uint256 _forest_id) public view returns (uint256) {
@@ -117,9 +116,6 @@ contract TreePlantingNFT {
         }
         return diversity_index;
     }
-    
-
-
 
     //group trees by species in a forest and return the species and number of trees in each species 
     function groupTreesBySpecies(uint256 _forest_id) public view returns (string[] memory, uint256[] memory) {
@@ -139,7 +135,7 @@ contract TreePlantingNFT {
  
 
    //add a new forest
-    function addForest(string memory _name, string memory _location, string memory _image, uint256 _max_number_of_trees) public {
+    function addForest(string memory _name, string memory _location, string memory _image, uint256 _max_number_of_trees) public onlyAdmin {
         forests[new_forest_id] = forest(_name, _location, _image, msg.sender, _max_number_of_trees); //Add the forest
         species_in_forest[new_forest_id] = new string[](0); //Add the species_in_forest
         new_forest_id += 1; //Increment the forest_id
@@ -163,7 +159,14 @@ contract TreePlantingNFT {
             species_in_forest[_forest_id].push(_species);
         }
     }
-    
+
+    //Add multiple trees with same species
+    function addMultipleTrees(string memory _species, string memory _location, uint256 _forest_id, string memory _image, string memory _date_planted, uint256 _age, uint256 _height, uint256 _carbon_offset, uint256 _number_of_trees) public onlyForestOwnerOrAdmin(_forest_id) {
+        for (uint256 i = 0; i < _number_of_trees; i++) {
+            addTree(_species, _location, _forest_id, _image, _date_planted, _age, _height, _carbon_offset);
+        }
+    }
+
     //transfer ownership of a tree
     function transferTreeOwnership(uint256 _tree_id, address _new_owner) public onlyOwner(_tree_id) {
         trees[_tree_id].owner = _new_owner; //Transfer the ownership of the tree
@@ -172,5 +175,24 @@ contract TreePlantingNFT {
     //transfer ownership of a forest
     function transferForestOwnership(uint256 _forest_id, address _new_owner) public onlyForestOwner(_forest_id) {
         forests[_forest_id].owner = _new_owner; //Transfer the ownership of the forest
+    }
+
+    //update the tree information
+    function updateTree(uint256 _tree_id, string memory _species, string memory _location, string memory _image, string memory _date_planted, uint256 _age, uint256 _height, uint256 _carbon_offset) public onlyAdmin {
+        trees[_tree_id].species = _species; //Update the species
+        trees[_tree_id].location = _location; //Update the location
+        trees[_tree_id].image = _image; //Update the image
+        trees[_tree_id].date_planted = _date_planted; //Update the date_planted
+        trees[_tree_id].age = _age; //Update the age
+        trees[_tree_id].height = _height; //Update the height
+        trees[_tree_id].carbon_offset = _carbon_offset; //Update the carbion_offset
+    }
+
+    //update the forest information
+    function updateForest(uint256 _forest_id, string memory _name, string memory _location, string memory _image, uint256 _max_number_of_trees) public onlyAdmin {
+        forests[_forest_id].name = _name; //Update the name
+        forests[_forest_id].location = _location; //Update the location
+        forests[_forest_id].image = _image; //Update the image
+        forests[_forest_id].max_number_of_trees = _max_number_of_trees; //Update the max_number_of_trees
     }
 }
