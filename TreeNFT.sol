@@ -6,7 +6,6 @@ contract TreePlantingNFT {
     uint new_forest_id; //The id of the forest 
     uint new_tree_id; //The id of the trees
     address admin; //The address who deployed the contract will be the admin
-    uint[] public cal_index;
 
     // Things happening when deploying contract
     constructor() { 
@@ -14,10 +13,10 @@ contract TreePlantingNFT {
     new_forest_id = 0; //Set the forest_id to 0
     new_tree_id = 0; //Set the tree_id to 0
     
-    //Add a default forest of 100 trees
+    //Add a default forest of 100 trees as demo
     addForest("Default", "HK", "www.demo.com/demo.jpg", 100);
 
-    //Add a default tree
+    //Add a default tree as demo
     addTree("Default1", "HK", 0, "www.demo.com/demo.jpg", "2021-01-01", 0, 0, 0);
     addTree("Default2", "HK", 0, "www.demo.com/demo.jpg", "2021-01-01", 0, 0, 0);
     addTree("Default1", "HK", 0, "www.demo.com/demo.jpg", "2021-01-01", 0, 0, 0);
