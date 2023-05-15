@@ -13,13 +13,12 @@ contract TreePlantingNFT {
     new_forest_id = 0; //Set the forest_id to 0
     new_tree_id = 0; //Set the tree_id to 0
     
-    //Add a default forest of 100 trees as demo
-    addForest("Default", "HK", "www.demo.com/demo.jpg", 100);
+    //Add a default forest of 100 trees
+    addForest("Demo Forest", "HK", "www.demo.com/demoforest.jpg", 100);
 
-    //Add a default tree as demo
-    addTree("Default1", "HK", 0, "www.demo.com/demo.jpg", "2021-01-01", 0, 0, 0);
-    addTree("Default2", "HK", 0, "www.demo.com/demo.jpg", "2021-01-01", 0, 0, 0);
-    addTree("Default1", "HK", 0, "www.demo.com/demo.jpg", "2021-01-01", 0, 0, 0);
+    //Add a default tree
+    addTree("Pine", "HK", 0, "www.demo.com/demotree1.jpg", "2021-01-01", 0, 1, 10);
+    addTree("Oak", "HK", 0, "www.demo.com/demotree2.jpg", "2021-01-01", 0, 2, 20);
     }
     
     //Attributes stored in each tree
