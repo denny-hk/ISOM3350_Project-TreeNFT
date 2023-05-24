@@ -134,3 +134,6 @@ dist
 *.py
 *.csv
 *.mp4
+*.docx
+*.pptx
+
